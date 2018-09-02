@@ -14,6 +14,15 @@
     "localStorage": true,
     "$": true
   },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": [
+          "src"
+        ]
+      }
+    }
+  },
   "rules": {
     "react/jsx-filename-extension": [
       1,
@@ -23,6 +32,7 @@
     ],
     "function-paren-newline": 0,
     "radix": 0,
+    "import/no-unresolved": 0,
     "jsx-a11y/media-has-caption": 0,
     "no-confusing-arrow": 0,
     "object-curly-newline": 0,

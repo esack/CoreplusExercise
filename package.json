@@ -14,8 +14,10 @@
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^7.1.4",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
     "clean-webpack-plugin": "^0.1.19",
     "compression-webpack-plugin": "^1.1.11",
     "copy-webpack-plugin": "^4.5.1",
@@ -44,16 +46,28 @@
     "webpack-manifest-plugin": "^2.0.3"
   },
   "dependencies": {
+    "@material-ui/core": "^1.5.1",
+    "@material-ui/icons": "^2.0.3",
     "classnames": "^2.2.6",
+    "date-and-time": "^0.6.2",
     "jquery": "^3.3.1",
     "normalize.css": "^8.0.0",
     "polished": "^1.9.2",
     "prop-types": "^15.6.1",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
+    "react-icons": "^3.0.5",
+    "react-redux": "^5.0.7",
     "react-reveal": "^1.2.2",
     "react-slick": "^0.23.1",
+    "react-window-size": "^1.2.2",
+    "redux": "^4.0.0",
+    "redux-actions": "^2.6.1",
+    "redux-logger": "^3.0.6",
+    "redux-saga": "^0.16.0",
     "slick-carousel": "^1.8.1",
-    "styled-components": "^3.3.0"
+    "styled-components": "^3.3.0",
+    "superagent": "^3.8.3",
+    "superagent-promise-plugin": "^3.2.0"
   }
 }

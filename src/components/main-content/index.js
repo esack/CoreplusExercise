@@ -1,22 +1,16 @@
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import Wrapper from './wrapper';
+import { Report } from '../report';
 
-export const MainContent = ({ className }) => (
-  <section className={className}>
-    <Wrapper />
-  </section>
+const StyledSection = styled.section`
+  input {
+    text-decoration: underline;
+  }
+`;
+
+export const MainContent = () => (
+  <StyledSection>
+    <Report />
+  </StyledSection>
 );
 
-MainContent.propTypes = {
-  className: PropTypes.string
-};
-
-export default styled(MainContent)`
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-`;
+export default MainContent;
