@@ -7,7 +7,9 @@ import styled from 'styled-components';
 import date from 'date-and-time';
 import {
   loadPractitioner as loadPractitionerClicked,
-  clearData as clearDataClicked
+  clearData as clearDataClicked,
+  setFromSelectedDate as setFromSelectedDateClicked,
+  setToSelectedDate as setToSelectedDateClicked
 } from '../actions';
 
 const StyledGrid = styled(Grid)`
@@ -31,33 +33,23 @@ const StyledGridRight = styled(Grid)`
 `;
 
 class Filter extends React.Component {
-  constructor(props) {
-    super(props);
-
-    const now = new Date();
-    this.state = {
-      fromDate: date.format(now, 'YYYY-MM-DD'),
-      toDate: date.format(date.addMonths(now, -3), 'YYYY-MM-DD')
-    };
-  }
-
   componentDidMount() {
-    this.props.loadPractitioner(this.state.fromDate, this.state.toDate);
-  }
-
-  handleChange(name, event) {
-    this.setState({
-      [name]: event.target.value
-    });
+    this.props.loadPractitioner(
+      this.props.selectedDate.fromDate.getTime(),
+      this.props.selectedDate.toDate.getTime()
+    );
   }
 
   searchClicked() {
     this.props.clearData();
-    this.props.loadPractitioner(this.state.fromDate, this.state.toDate);
+    this.props.loadPractitioner(
+      this.props.selectedDate.fromDate.getTime(),
+      this.props.selectedDate.toDate.getTime()
+    );
   }
 
   render() {
-    const { fromDate, toDate } = this.state;
+    const { selectedDate, setFromSelectedDate, setToSelectedDate } = this.props;
 
     return (
       <Grid item xs={12} md={8}>
@@ -75,8 +67,8 @@ class Filter extends React.Component {
               id="fromDate"
               label="From"
               type="date"
-              onChange={target => this.handleChange('fromDate', target)}
-              defaultValue={fromDate}
+              onChange={obj => setFromSelectedDate(obj.target.valueAsDate)}
+              defaultValue={date.format(selectedDate.fromDate, 'YYYY-MM-DD')}
               InputLabelProps={{
                 shrink: true
               }}
@@ -87,8 +79,8 @@ class Filter extends React.Component {
               id="toDate"
               label="To"
               type="date"
-              onChange={target => this.handleChange('toDate', target)}
-              defaultValue={toDate}
+              onChange={obj => setToSelectedDate(obj.target.valueAsDate)}
+              defaultValue={date.format(selectedDate.toDate, 'YYYY-MM-DD')}
               InputLabelProps={{
                 shrink: true
               }}
@@ -107,13 +99,25 @@ class Filter extends React.Component {
 
 Filter.propTypes = {
   loadPractitioner: PropTypes.func,
-  clearData: PropTypes.func
+  clearData: PropTypes.func,
+  setFromSelectedDate: PropTypes.func,
+  setToSelectedDate: PropTypes.func,
+  selectedDate: PropTypes.shape({
+    fromDate: PropTypes.object,
+    toDate: PropTypes.object
+  })
 };
 
+const mapStateToProps = ({ report }) => ({
+  selectedDate: report.selectedDate
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   {
     loadPractitioner: loadPractitionerClicked,
-    clearData: clearDataClicked
+    clearData: clearDataClicked,
+    setFromSelectedDate: setFromSelectedDateClicked,
+    setToSelectedDate: setToSelectedDateClicked
   }
 )(Filter);

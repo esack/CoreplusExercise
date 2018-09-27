@@ -18,6 +18,10 @@ const StyledGrid = styled(Grid)`
   vertical-align: baseline;
 `;
 
+const StyledMessage = styled(Grid)`
+  padding-top: 15px;
+`;
+
 export const Report = ({ practitioners, selectedPractitionerId }) => (
   <StyledGrid
     container
@@ -37,13 +41,16 @@ export const Report = ({ practitioners, selectedPractitionerId }) => (
       md={selectedPractitionerId ? 7 : 8}
     >
       {(practitioners &&
-        practitioners.map(practitioner => (
-          <PractitionerRow key={practitioner.id} row={practitioner}>
-            <Hidden mdUp>
-              <Appointments practitionerId={practitioner.id} />
-            </Hidden>
-          </PractitionerRow>
-        ))) || <PractitionersLoading />}
+        ((practitioners.length > 0 &&
+          practitioners.map(practitioner => (
+            <PractitionerRow key={practitioner.id} row={practitioner}>
+              <Hidden mdUp>
+                <Appointments practitionerId={practitioner.id} />
+              </Hidden>
+            </PractitionerRow>
+          ))) || <StyledMessage>No data found</StyledMessage>)) || (
+        <PractitionersLoading />
+      )}
     </MaterialTable>
     <Hidden smDown>
       <Appointments name="appointments" />

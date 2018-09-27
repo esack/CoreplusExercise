@@ -30,11 +30,16 @@ export const PractitionerRow = ({
   onPractitionerClicked,
   loadAppointments,
   selectedPractitionerId,
-  windowWidth
+  windowWidth,
+  selectedDate
 }) => {
   const practitionerClicked = practitione => {
     onPractitionerClicked(practitione);
-    loadAppointments(practitione.id);
+    loadAppointments(
+      practitione.id,
+      selectedDate.fromDate.getTime(),
+      selectedDate.toDate.getTime()
+    );
     if (windowWidth >= 960) {
       window.scrollTo(0, 0);
     }
@@ -120,11 +125,16 @@ PractitionerRow.propTypes = {
   onPractitionerClicked: PropTypes.func,
   loadAppointments: PropTypes.func,
   selectedPractitionerId: PropTypes.string,
-  windowWidth: PropTypes.number
+  windowWidth: PropTypes.number,
+  selectedDate: PropTypes.shape({
+    fromDate: PropTypes.object,
+    toDate: PropTypes.object
+  })
 };
 
 const mapStateToProps = ({ report }) => ({
-  selectedPractitionerId: report.selected_practitioner_id
+  selectedPractitionerId: report.selected_practitioner_id,
+  selectedDate: report.selectedDate
 });
 
 export default windowSize(
